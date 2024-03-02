@@ -1,11 +1,12 @@
+import streamlit as st
 import nltk
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 import wikipedia
-import pickle
+import time
 # Download NLTK resources
-nltk.download('punkt')
-nltk.download('stopwords')
+# nltk.download('punkt')
+# nltk.download('stopwords')
 
 # Set up Wikipedia
 wikipedia.set_lang("en")
@@ -36,28 +37,36 @@ def handle_user_input(user_input):
         processed_input = preprocess_input(user_input)
         if processed_input == 'hello':
             response = 'Hello, how may I help you?'
-            with open('response.pkl','wb') as response_file:
-                pickle.dump(response,response_file)
         else:
             response = get_wikipedia_summary(processed_input)
-            with open('response.pkl','wb') as response_file:
-                pickle.dump(response,response_file)
 
 
-        return f"You: {user_input}\nChatcrafter: {response}"
+        return f"{response}"
 
-# Example usage
 
+
+css = """<style>
+            .output {
+            font-family: 'Arial';
+            font-size: 20px;
+}"""
+
+
+st.title('Chatcrafter')
+st.markdown(css,unsafe_allow_html=True)
+try:
+    user_input = st.text_input('You: ')
+    if st.button('Submit'):
+        response = handle_user_input(user_input)
+        x = (f'<p class="output"> Chatcrafter:{response}<p>')
+        st.write(x,unsafe_allow_html=True)
+
+except:
+    st.write('Invalid Input')
 # while True:
 #     user_input = input("You: ")
 #     response = handle_user_input(user_input)
-#     print(response)
-
-#     with open('response.pkl','wb') as response_file:
-#         pickle.dump(response,response_file)
-
-#     if user_input.lower() == 'exit':
-#         break
-
-
-
+#     try:
+#         print(response)
+#     except:
+#         print('Invalid Input')
