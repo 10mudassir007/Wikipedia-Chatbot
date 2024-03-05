@@ -4,9 +4,6 @@ from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 import wikipedia
 import time
-# Download NLTK resources
-# nltk.download('punkt')
-# nltk.download('stopwords')
 
 # Set up Wikipedia
 wikipedia.set_lang("en")
@@ -63,10 +60,3 @@ try:
 
 except:
     st.write('Invalid Input')
-# while True:
-#     user_input = input("You: ")
-#     response = handle_user_input(user_input)
-#     try:
-#         print(response)
-#     except:
-#         print('Invalid Input')
